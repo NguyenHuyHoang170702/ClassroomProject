@@ -3,6 +3,7 @@ package com.hoangdev.Classroom.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -32,7 +33,7 @@ public class User {
             joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles =new HashSet<>();
 
     //User vs Classroom
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -52,5 +53,18 @@ public class User {
 
     @ManyToMany (mappedBy = "users")
     private Set<News> news;
+
+    public void addClass(Classroom cls) {
+        this.classrooms.add(cls);
+    }
+
+    public void removeClass(Classroom cls) {
+        this.classrooms.remove(cls);
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
 
 }
