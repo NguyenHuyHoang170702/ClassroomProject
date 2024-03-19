@@ -30,9 +30,9 @@ public class News {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "news_user",
             joinColumns = @JoinColumn(name = "news_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
-    private Set<User> users;
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "news")
-    private Set<Comment> comments;
+    private Set<Comment> comments = new HashSet<>();
 }

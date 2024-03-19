@@ -13,24 +13,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class HomeController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping()
+    @GetMapping("")
     public String Index(){
         return "index";
     }
 
-    @GetMapping("/login-register")
+    @GetMapping("/index")
+    public String Index1(){
+        return "success";
+    }
+    @GetMapping("login-register")
     public String RegisterAndLogin( Model model){
         model.addAttribute("user", new User());
         return "login-register";
     }
 
-    @PostMapping("/process_register")
+    @PostMapping("process_register")
     public String Register(@NotNull User user){
         userService.saveUserWithDefaultRole(user);
         return "redirect:/login-register";

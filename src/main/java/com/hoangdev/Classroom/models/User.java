@@ -17,7 +17,9 @@ import java.util.Set;
 @Entity
 public class User {
     @Id
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+    @Column(nullable = false, unique = true)
     private String username;
     private String name;
     @Column(nullable = false, unique = true)
@@ -30,29 +32,26 @@ public class User {
     // User vs Role
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles =new HashSet<>();
+    private Set<Role> roles;
 
-    //User vs Classroom
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_classroom",
-            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     )
-    private Set<Classroom> classrooms;
-
-
+    private Set<Classroom> classrooms = new HashSet<>();
 
     @ManyToMany()
     @JoinTable(name = "user_homework",
-            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "homework_id", referencedColumnName = "id"))
-    private Set<Homework> homeworks;
+    private Set<Homework> homeworks = new HashSet<>();
 
     @ManyToMany (mappedBy = "users")
-    private Set<News> news;
+    private Set<News> news=new HashSet<>();
 
     public void addClass(Classroom cls) {
         this.classrooms.add(cls);

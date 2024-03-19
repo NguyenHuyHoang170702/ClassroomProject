@@ -23,7 +23,7 @@ public class Homework {
     private Classroom classroom;
 
     @ManyToMany(mappedBy = "homeworks")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Getter

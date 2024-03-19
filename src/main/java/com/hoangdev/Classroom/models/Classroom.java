@@ -4,6 +4,7 @@ package com.hoangdev.Classroom.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -25,13 +26,13 @@ public class Classroom {
     private String codeClass;
 
     @ManyToMany(mappedBy = "classrooms")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "classroom")
-    private Set<Homework> homeworks;
+    private Set<Homework> homeworks = new HashSet<>();
 
     @OneToMany(mappedBy = "classroom")
-    private Set<News> news;
+    private Set<News> news = new HashSet<>();
 
 
 }

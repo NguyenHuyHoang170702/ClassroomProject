@@ -4,6 +4,7 @@ package com.hoangdev.Classroom.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,8 +22,4 @@ public class Role {
     private String roleName;
     @Column(name = "description")
     private String roleDescription;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
-
 }

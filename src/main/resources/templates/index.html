@@ -14,13 +14,13 @@
         <li>
             <a class="active" th:href="@{/}">Home</a>
         </li>
-        <li sec:authorize="hasAuthority('ADMIN')">
+        <li sec:authorize="hasAuthority('ROlE_ADMIN')">
             <a th:href="@{/user}">Users</a>
         </li>
-        <li sec:authorize="hasAnyAuthority('TEACHER', 'STUDENT')">
+        <li sec:authorize="hasAnyAuthority('ROLE_TEACHER', 'ROLE_STUDENT')">
             <a th:href="@{/classroom}">Classrooms</a>
         </li>
-        <li><a th:href="@{/login}">Login</a>
+        <li><a th:href="@{/login-register}">Login</a>
         </li>
     </ul>
 </div>
