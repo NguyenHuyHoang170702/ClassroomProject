@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -22,4 +23,15 @@ public class Role {
     private String roleName;
     @Column(name = "description")
     private String roleDescription;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
+
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

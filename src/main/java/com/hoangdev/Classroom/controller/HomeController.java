@@ -28,15 +28,21 @@ public class HomeController {
     public String Index1(){
         return "success";
     }
+
+    @GetMapping("/success1")
+    public String success1(){
+        return "success";
+    }
     @GetMapping("login-register")
     public String RegisterAndLogin( Model model){
         model.addAttribute("user", new User());
         return "login-register";
     }
-
     @PostMapping("process_register")
     public String Register(@NotNull User user){
         userService.saveUserWithDefaultRole(user);
         return "redirect:/login-register";
     }
+
+
 }

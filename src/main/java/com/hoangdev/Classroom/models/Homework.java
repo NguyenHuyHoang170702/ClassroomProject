@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -48,4 +49,9 @@ public class Homework {
     @Lob
     private byte [] content;
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

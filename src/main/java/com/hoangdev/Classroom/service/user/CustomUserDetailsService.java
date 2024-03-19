@@ -14,11 +14,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-@Service
-@AllArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService {
+public record CustomUserDetailsService(UserRepository userRepository) implements UserDetailsService {
 
-    private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
@@ -29,10 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map((role) -> new SimpleGrantedAuthority(role.getRoleName()))
                 .collect(Collectors.toSet());
 
-        return new org.springframework.security.core.userdetails.User(
-                username,
-                user.getPassword(),
-                authorities
-        );
+        return new CustomUserDetails(user);
     }
 }

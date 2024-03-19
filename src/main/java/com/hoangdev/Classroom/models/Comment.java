@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @Getter
@@ -29,4 +30,9 @@ public class Comment {
     @JoinColumn(name = "news_id", referencedColumnName = "id", nullable = false)
     private News news;
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, content, timestamp);
+    }
 }

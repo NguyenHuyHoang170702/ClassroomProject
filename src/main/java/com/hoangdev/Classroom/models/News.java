@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -35,4 +36,10 @@ public class News {
 
     @OneToMany(mappedBy = "news")
     private Set<Comment> comments = new HashSet<>();
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, content, timestamp, classroom);
+    }
 }

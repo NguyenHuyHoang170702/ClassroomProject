@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -34,5 +35,8 @@ public class Classroom {
     @OneToMany(mappedBy = "classroom")
     private Set<News> news = new HashSet<>();
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
