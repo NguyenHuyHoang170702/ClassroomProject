@@ -37,9 +37,25 @@ public class News {
     @OneToMany(mappedBy = "news")
     private Set<Comment> comments = new HashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News news = (News) o;
+        return Objects.equals(id, news.id) && Objects.equals(title, news.title) && Objects.equals(content, news.content) && Objects.equals(timestamp, news.timestamp) && Objects.equals(classroom, news.classroom);
+    }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, title, content, timestamp, classroom);
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

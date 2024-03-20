@@ -16,7 +16,7 @@
 
         </li>
         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
-            <a th:href="@{/user}">Users</a>
+            <a th:href="@{/user/users}">Users</a>
         </li>
         <li sec:authorize="hasAnyAuthority('ROLE_TEACHER', 'ROLE_STUDENT')">
             <a th:href="@{/classroom}">Classrooms</a>

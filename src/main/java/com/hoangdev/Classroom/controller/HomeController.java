@@ -26,13 +26,9 @@ public class HomeController {
 
     @GetMapping("/index")
     public String Index1(){
-        return "success";
+        return "index";
     }
 
-    @GetMapping("/success1")
-    public String success1(){
-        return "success";
-    }
     @GetMapping("login-register")
     public String RegisterAndLogin( Model model){
         model.addAttribute("user", new User());
@@ -43,6 +39,9 @@ public class HomeController {
         userService.saveUserWithDefaultRole(user);
         return "redirect:/login-register";
     }
+
+
+
 
 
 }

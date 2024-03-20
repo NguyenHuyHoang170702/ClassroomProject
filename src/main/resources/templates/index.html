@@ -9,18 +9,25 @@
     <title>Home</title>
 </head>
 <body>
-<div layout:fragment="breadcrumb">
+<div layout:fragment="breadcrumb" class="mt-3">
     <ul class="main-menu">
         <li>
-            <a class="active" th:href="@{/}">Home</a>
+            <a th:href="@{/}">Home</a>
         </li>
-        <li sec:authorize="hasAuthority('ROlE_ADMIN')">
-            <a th:href="@{/user}">Users</a>
+        <li>
+            <a th:href="@{/account/showAccount}">Account</a>
+        </li>
+        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+            <a th:href="@{/user/users}">Users</a>
         </li>
         <li sec:authorize="hasAnyAuthority('ROLE_TEACHER', 'ROLE_STUDENT')">
-            <a th:href="@{/classroom}">Classrooms</a>
+            <a th:href="@{/classroom/index}">Classrooms</a>
         </li>
-        <li><a th:href="@{/login-register}">Login</a>
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Logout</a>
+        </li>
+        <li sec:authorize="isAnonymous()">
+            <a class="active" th:href="@{/login-register}">Login</a>
         </li>
     </ul>
 </div>

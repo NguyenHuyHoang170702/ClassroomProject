@@ -3,6 +3,7 @@ package com.hoangdev.Classroom.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -49,9 +50,29 @@ public class Homework {
     @Lob
     private byte [] content;
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Homework homework = (Homework) o;
+        return Objects.equals(id, homework.id);
+    }
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Homework{" +
+                "classroom=" + classroom +
+                ", parentHomework=" + parentHomework +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", size=" + size +
+                ", score=" + score +
+                ", homeworkCode='" + homeworkCode + '\'' +
+                ", content=" + Arrays.toString(content) +
+                '}';
     }
 }
