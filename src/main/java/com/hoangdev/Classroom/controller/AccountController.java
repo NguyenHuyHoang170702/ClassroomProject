@@ -1,5 +1,6 @@
 package com.hoangdev.Classroom.controller;
 
+import com.hoangdev.Classroom.models.User;
 import com.hoangdev.Classroom.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -17,11 +18,9 @@ public class AccountController {
     private UserService userService;
     @GetMapping("/showAccount")
     public String accountInfo(Model model){
-        UserDetails currentUser = userService.getCurrentAccount();
-        String username = currentUser.getUsername();
-        String role = currentUser.getAuthorities().toString();
-        model.addAttribute("username", username);
-        model.addAttribute("role", role);
+        User user =  userService.getCurrentAccount();
+        model.addAttribute("user", user);
+        model.addAttribute("role", user.getRoles());
         return "user/account_info";
     }
 }

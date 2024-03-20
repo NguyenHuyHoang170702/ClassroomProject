@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDetails getCurrentAccount( ) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (UserDetails) authentication.getPrincipal();
+    public User getCurrentAccount( ) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username);
     }
 }

@@ -38,7 +38,6 @@
 </div>
 
 
-
 <div class="mt-5">
     <div class="card shadow border-0 mt-4 p-3" layout:fragment="main_body">
         <div class="section page-banner-section bg-color-1">
@@ -53,10 +52,10 @@
             <div class="container">
                 <!-- Page Banner Content Start -->
                 <div class="page-banner-content">
-                    <h2 class="title">Hello [[${user.getName()}]]</h2>
+                    <h2 class="title">Classroom</h2>
                     <ul class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-                        <li class="breadcrumb-item active">Account</li>
+                        <li class="breadcrumb-item active">Classroom</li>
                     </ul>
                 </div>
                 <!-- Page Banner Content End -->
@@ -64,33 +63,49 @@
         </div>
 
         <div class="container mt-4">
-            <form style="max-width: 600px; margin: auto auto;">
+            <div class="row pb-3">
+                <div class="col-6">
+                    <form class="form">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" placeholder="input class code to join" class="form-control">
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary"> JOIN CLASS</button>
+                            </div>
+                        </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">User name </label>
-                    <div class="col-8">
-                        <!-- Use th:object to specify the object -->
-                        <input type="text" th:object="${user}" th:field="*{username}" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Role </label>
-                    <div class="col-8">
-                        <input type="text" th:value="${user.getEmail()}" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Role </label>
-                    <div class="col-8">
-                    <input type="text" th:each="role : ${user.roles}" th:value="${role.roleName}" class="form-control" disabled/>
-                    </div>
-                </div>
-            </form>
 
+                    </form>
+                </div>
+                <div class="col-6 text-end">
+                    <a th:href="@{/classroom/add-class}" class="btn btn-success">
+                        <i class="bi bi-plus-circle" style="height:20px; cursor:pointer"></i> &ensp; Add New Class
+                    </a>
+                </div>
+            </div>
+            <h2>List your classroom:</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5">
+                <div th:each="classroom : ${lstClass}">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${classroom.nameClass}"></h5>
+                                <p class="card-text" th:text="${classroom.descriptionClass}"></p>
+                            </div>
+                            <div class="card-footer" sec:authorize="hasAuthority('ROLE_TEACHER')">
+                                <p class="card-text" th:text="${classroom.codeClass}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 
 </div>
+
 
 
 </body>

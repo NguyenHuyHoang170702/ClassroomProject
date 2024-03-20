@@ -19,5 +19,5 @@ public interface UserService {
 
     List<Role> getRoles();
 
-    UserDetails getCurrentAccount();
+    User getCurrentAccount();
 }
