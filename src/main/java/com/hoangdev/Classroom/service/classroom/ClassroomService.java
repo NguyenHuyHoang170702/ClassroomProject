@@ -13,5 +13,6 @@ public interface ClassroomService {
     Page<Classroom> getClassByUsernamePaginate(String username, int pageNum, int pageSize);
 
     Classroom findClass(int id);
-    ;
+
+    Classroom findByCodeClassId(String keyword);
 }

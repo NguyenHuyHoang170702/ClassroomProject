@@ -24,4 +24,6 @@ public interface UserService {
 
     Set<User> findByRoleAndClassroom(String roleName, int classId);
 
+    void addUser(User user);
+
 }

@@ -63,7 +63,6 @@ public class ClassroomController {
         return "user/classroomOfUser";
     }
 
-
     @PostMapping("/save")
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     public String CreateNewClass(Classroom classroom){
@@ -72,6 +71,15 @@ public class ClassroomController {
         currentUser.addClass(classroom);
         userService.save(currentUser);
         return "redirect:/classroom/index";
+    }
+
+    @PostMapping("/join")
+    public String joinClassByCode(@RequestParam String keyword,Classroom classroom){
+        var currentUser = userService.getCurrentAccount();
+        classroom = classroomService.findByCodeClassId(keyword);
+        currentUser.getClassrooms().add(classroom);
+        userService.addUser(currentUser);
+        return "redirect:/classroom/detail/"+classroom.getId();
     }
 
 
@@ -84,6 +92,7 @@ public class ClassroomController {
         }
         return "/user/detail_class";
     }
+
 
 
 

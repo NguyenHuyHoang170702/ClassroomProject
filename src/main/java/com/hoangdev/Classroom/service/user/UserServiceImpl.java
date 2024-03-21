@@ -66,12 +66,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentAccount() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByUsername(username);
     }
 
     @Override
     public Set<User> findByRoleAndClassroom(String roleName, int classId) {
         return userRepository.findByRolesAndClassrooms(roleName, classId);
+    }
+
+    @Override
+    public void addUser(User user) {
+        userRepository.save(user);
     }
 }

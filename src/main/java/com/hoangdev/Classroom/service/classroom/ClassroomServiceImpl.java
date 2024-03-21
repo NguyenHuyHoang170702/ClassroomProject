@@ -37,4 +37,12 @@ public class ClassroomServiceImpl implements ClassroomService{
         return classroomRepository.findById(id).get();
     }
 
+    @Override
+    public Classroom findByCodeClassId(String keyword) {
+        if (keyword != null) {
+            return classroomRepository.findOneByCodeClass(keyword);
+        }
+        return null;
+    }
+
 }

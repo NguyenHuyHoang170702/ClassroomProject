@@ -24,6 +24,7 @@ public class Classroom {
 
     private String descriptionClass;
 
+    @Column(unique = true)
     private String codeClass;
 
     @ManyToMany(mappedBy = "classrooms")
