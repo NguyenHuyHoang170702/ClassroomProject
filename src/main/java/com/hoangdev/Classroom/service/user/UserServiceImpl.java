@@ -12,13 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -58,7 +56,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findUserById(int id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -67,8 +65,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getCurrentAccount( ) {
+    public User getCurrentAccount() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Set<User> findByRoleAndClassroom(String roleName, int classId) {
+        return userRepository.findByRolesAndClassrooms(roleName, classId);
     }
 }

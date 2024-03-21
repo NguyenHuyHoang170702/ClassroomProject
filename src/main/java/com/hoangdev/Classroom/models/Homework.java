@@ -24,7 +24,10 @@ public class Homework {
     @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
     private Classroom classroom;
 
-    @ManyToMany(mappedBy = "homeworks")
+    @ManyToMany()
+    @JoinTable(name = "homework_user",
+            joinColumns = @JoinColumn(name = "homework_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

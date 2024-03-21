@@ -39,79 +39,76 @@
 
 
 
-<div class="mt-5">
-    <div class="card shadow border-0 mt-4 p-3" layout:fragment="main_body">
-        <div class="section page-banner-section bg-color-1">
+<div layout:fragment="main_body">
+    <div class="section page-banner-section bg-color-1">
 
-            <img alt="shape" class="shape-1" th:src="@{/images/shape/shape-5.png}">
-            <img alt="shape" class="shape-2" th:src="@{/images/shape/shape-6.png}">
-            <img alt="shape" class="shape-3" th:src="@{/images/shape/shape-7.png}">
+        <img alt="shape" class="shape-1" th:src="@{/images/shape/shape-5.png}">
+        <img alt="shape" class="shape-2" th:src="@{/images/shape/shape-6.png}">
+        <img alt="shape" class="shape-3" th:src="@{/images/shape/shape-7.png}">
 
-            <img alt="shape" class="shape-4" th:src="@{/images/shape/shape-21.png}">
-            <img alt="shape" class="shape-5" th:src="@{/images/shape/shape-21.png}">
-
-            <div class="container">
-                <!-- Page Banner Content Start -->
-                <div class="page-banner-content">
-                    <h2 class="title">Add User</h2>
-                    <ul class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
-                    </ul>
-                </div>
-                <!-- Page Banner Content End -->
-            </div>
-        </div>
+        <img alt="shape" class="shape-4" th:src="@{/images/shape/shape-21.png}">
+        <img alt="shape" class="shape-5" th:src="@{/images/shape/shape-21.png}">
 
         <div class="container">
-            <form th:action="@{/user/save}" th:object="${user}"
-                  method="post" style="max-width: 600px; margin: 0 auto;">
-                <input type="hidden" th:field="*{id}"/>
-                <div class="m-3">
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label">E-mail </label>
-                        <div class="col-8">
-                            <input type="email" th:field="*{email}" class="form-control" required/>
-                        </div>
-                    </div>
-                </div>
-                <div class="m-3">
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label">User name </label>
-                        <div class="col-8">
-                            <input type="text" th:field="*{username}" class="form-control"
-                                   required minlength="2" maxlength="20"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="m-3">
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label">Password </label>
-                        <div class="col-8">
-                            <input type="password" th:field="*{password}" class="form-control"
-                                   required minlength="6" maxlength="10"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="m-3">
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label">Roles: </label>
-                        <div class="col-8">
-                            <select th:field="*{roles}" class="form-control">
-                                <th:block th:each="role : ${listRoles}">
-                                    <option th:value="${role.id}" th:text="${role.roleName}"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                    </div>
-                    <button class="btn btn-warning btn-hover-heading-color w-100 mt-2" type="submit">
-                        Update
-                    </button>
-                </div>
-            </form>
+            <!-- Page Banner Content Start -->
+            <div class="page-banner-content">
+                <h2 class="title">Edit User</h2>
+                <ul class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                    <li class="breadcrumb-item active">Edit</li>
+                </ul>
+            </div>
+            <!-- Page Banner Content End -->
         </div>
     </div>
+    <div class="container">
+        <form th:action="@{/user/save}" th:object="${user}"
+              method="post" style="max-width: 600px; margin: 0 auto;">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">E-mail </label>
+                    <div class="col-8">
+                        <input type="email" th:field="*{email}" class="form-control" required/>
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Password </label>
+                    <div class="col-8">
+                        <input type="password" th:field="*{password}" class="form-control"
+                               required minlength="6" maxlength="10"/>
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Username </label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{username}" class="form-control"
+                               required minlength="2" maxlength="20"/>
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Roles: </label>
+                    <div class="col-8">
+                        <th:block th:each="role: ${listRoles}">
+                            <input type="checkbox" th:field="*{roles}"
+                                   th:text="${role.roleName}" th:value="${role.id}" class="m-2"/>
+                        </th:block>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-hover-heading-color w-100" type="submit">
+                    Update
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
 
 
 

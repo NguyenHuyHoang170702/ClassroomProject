@@ -32,25 +32,21 @@ public class User {
     @Column(name = "status")
     private boolean status;
 
-    // User vs Role
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "user_classroom",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "classroom_id", referencedColumnName = "id")
     )
     private Set<Classroom> classrooms = new HashSet<>();
 
-    @ManyToMany()
-    @JoinTable(name = "user_homework",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "homework_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "users")
     private Set<Homework> homeworks = new HashSet<>();
 
     @ManyToMany (mappedBy = "users")

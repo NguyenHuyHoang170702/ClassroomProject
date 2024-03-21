@@ -36,19 +36,19 @@ public class UserController {
         return "admin/frm_user";
     }
 
-    @PostMapping("/save")
-    public String saveUser(User user){
-        userService.save(user);
-        return "redirect:/user/users";
-    }
+        @PostMapping("/save")
+        public String saveUser(User user){
+            userService.save(user);
+            return "redirect:/user/users";
+        }
 
-    @GetMapping("/edit/{id}")
-    public String updateUser(@PathVariable int id, Model model){
-        User user = userService.findUserById(id);
-        List<Role> listRoles= userService.getRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("listRoles", listRoles);
-        return "admin/frm_user";
-    }
+        @GetMapping("/edit/{id}")
+        public String updateUser(@PathVariable int id, Model model){
+            User user = userService.findUserById(id);
+            List<Role> listRoles= userService.getRoles();
+            model.addAttribute("user", user);
+            model.addAttribute("listRoles", listRoles);
+            return "admin/frm_user";
+        }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserService {
     void saveUserWithDefaultRole(User user);
@@ -20,4 +21,7 @@ public interface UserService {
     List<Role> getRoles();
 
     User getCurrentAccount();
+
+    Set<User> findByRoleAndClassroom(String roleName, int classId);
+
 }
