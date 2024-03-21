@@ -321,11 +321,11 @@
 
                 </div>
 
-<!--                <div class="col-lg-4">-->
-<!--                    &lt;!&ndash; Sidebar Wrapper Start &ndash;&gt;-->
+                <div class="col-lg-4">
+                    <!-- Sidebar Wrapper Start -->
 <!--                    <div class="sidebar-details-wrap">-->
 <!--                        &lt;!&ndash; Sidebar Details Video Description Start &ndash;&gt;-->
-<!--                        <div class="sidebar-details-video-description" sec:authorize="hasAuthority('TEACHER')">-->
+<!--                        <div class="sidebar-details-video-description" sec:authorize="hasAuthority('ROLE_TEACHER')">-->
 <!--                            <div class="sidebar-description">-->
 <!--                                <div class="price">-->
 <!--                                    <span class="sale-price">New assignment</span>-->
@@ -361,7 +361,7 @@
                                    th:href="@{'/news?classroomId=' + ${classroom.id}}">Add news</a>
                                 <a class="btn btn-outline-primary w-100"
 
-                                   th:href="@{'/homework?classroomId=' + ${classroom.id}}"
+                                   th:href="@{'/homework/index?classroomId=' + ${classroom.id}}"
                                    sec:authorize="hasAuthority('ROLE_TEACHER')">View homeworks</a>
                             </div>
                         </div>
