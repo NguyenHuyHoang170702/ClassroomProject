@@ -29,4 +29,13 @@ public class HomeworkServiceImpl implements HomeworkService{
     public void saveHomework(Homework homework) {
         homeworkRepository.save(homework);
     }
+    @Override
+    public List<Homework> getByClassIdAndUsername(int classId, String username) {
+        return homeworkRepository.getHomeworkByClassroomIdAndUserName(classId,username);
+    }
+
+    @Override
+    public List<Homework> getByTeacher(int classId) {
+        return homeworkRepository.getHomeworkByTeacher(classId);
+    }
 }

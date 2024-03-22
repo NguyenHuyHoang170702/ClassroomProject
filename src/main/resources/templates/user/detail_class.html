@@ -70,7 +70,6 @@
 
     <!-- Course List Start -->
     <div class="section section-padding">
-        <div class="container">
 
             <div class="row justify-content-between">
                 <div class="col-xl-7 col-lg-8">
@@ -323,39 +322,41 @@
 
                 <div class="col-lg-4">
                     <!-- Sidebar Wrapper Start -->
-<!--                    <div class="sidebar-details-wrap">-->
-<!--                        &lt;!&ndash; Sidebar Details Video Description Start &ndash;&gt;-->
-<!--                        <div class="sidebar-details-video-description" sec:authorize="hasAuthority('ROLE_TEACHER')">-->
-<!--                            <div class="sidebar-description">-->
-<!--                                <div class="price">-->
-<!--                                    <span class="sale-price">New assignment</span>-->
-<!--                                </div>-->
+                    <div class="sidebar-details-wrap">
+                        <!-- Sidebar Details Video Description Start -->
+                        <div class="sidebar-details-video-description" sec:authorize="hasAuthority('ROLE_TEACHER')">
+                            <div class="sidebar-description">
+                                <div class="price">
+                                    <span class="sale-price">New assignment</span>
+                                </div>
 <!--                                <p class="alert alert-success" role="alert" th:if="${success}" th:text="${success}"></p>-->
 <!--                                <p class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></p>-->
-<!--                                <div>-->
-<!--                                    <form enctype="multipart/form-data" method="post"-->
-<!--                                          th:action="@{/classroom}"-->
-<!--                                          th:object="${homeworkObj}">-->
-<!--                                        <input name="classroomId" th:value="${classroomId}" type="hidden">-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label class="col-form-label" for="homeworkName2">Name</label>-->
-<!--                                            <input class="form-control" id="homeworkName2" required-->
-<!--                                                   th:field="*{name}" type="text">-->
-<!--                                        </div>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label class="col-form-label" for="homeworkDescription2">Description</label>-->
-<!--                                            <input class="form-control" id="homeworkDescription2" required-->
-<!--                                                   th:field="*{description}" type="text">-->
-<!--                                        </div>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label class="col-form-label" for="formFile2">File</label>-->
-<!--                                            <input class="form-control" id="formFile2" name="file" type="file">-->
-<!--                                        </div>-->
-<!--                                        <button class="btn btn-warning btn-hover-heading-color w-100" type="submit">-->
-<!--                                            Upload-->
-<!--                                        </button>-->
-<!--                                    </form>-->
-<!--                                </div>-->
+                                <div>
+                                    <form enctype="multipart/form-data" method="post"
+                                          th:action="@{/classroom/add-assignment}"
+                                          th:object="${homeworkObj}"
+                                          onsubmit="showLoading()"
+                                    >
+                                        <input name="classroomId" th:value="${classroom.id}" type="hidden">
+                                        <div class="mb-3">
+                                            <label class="col-form-label" for="homeworkName2">Name</label>
+                                            <input class="form-control" id="homeworkName2" required
+                                                   th:field="*{name}" type="text">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="col-form-label" for="homeworkDescription2">Description</label>
+                                            <input class="form-control" id="homeworkDescription2" required
+                                                   th:field="*{description}" type="text">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="col-form-label" for="formFile2">File</label>
+                                            <input class="form-control" id="formFile2" name="file" type="file">
+                                        </div>
+                                        <button class="btn btn-warning btn-hover-heading-color w-100" type="submit">
+                                            Upload
+                                        </button>
+                                    </form>
+                                </div>
 
                                 <a class="btn btn-outline-primary w-100"
                                    th:href="@{'/news?classroomId=' + ${classroom.id}}">Add news</a>
@@ -365,6 +366,13 @@
                                    sec:authorize="hasAuthority('ROLE_TEACHER')">View homeworks</a>
                             </div>
                         </div>
+                        <div class="container">
+                            <!-- loading.html -->
+                            <div id="showLoading" style="display: none;">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
                         <!-- Sidebar Details Video Description End -->
 
                         <!-- Sidebar Course Start -->
@@ -412,5 +420,22 @@
 </div>
 </div>
 </body>
+<script th:inline="javascript">
+    function showLoading() {
+        document.getElementById('showLoading').style.display = 'block';
+    }
 
+    function hideLoading() {
+        document.getElementById('showLoading').style.display = 'none';
+    }
+
+    $(document).ready(function() {
+        $(document).ajaxSuccess(function(event, xhr, settings) {
+            var showLoading = xhr.getResponseHeader('showLoading');
+            if (showLoading === 'false') {
+                hideLoading();
+            }
+        });
+    });
+</script>
 </html>

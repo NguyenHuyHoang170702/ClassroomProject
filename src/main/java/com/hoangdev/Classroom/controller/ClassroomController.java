@@ -2,19 +2,30 @@ package com.hoangdev.Classroom.controller;
 
 import com.hoangdev.Classroom.dto.ClassroomDto;
 import com.hoangdev.Classroom.models.Classroom;
+import com.hoangdev.Classroom.models.Homework;
+import com.hoangdev.Classroom.models.Res;
 import com.hoangdev.Classroom.service.classroom.ClassroomService;
+import com.hoangdev.Classroom.service.homework.HomeworkService;
+import com.hoangdev.Classroom.service.upload.UploadFileService;
+import com.hoangdev.Classroom.service.upload.UploadFileServiceImpl;
 import com.hoangdev.Classroom.service.user.UserService;
 import com.hoangdev.Classroom.utils.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.hoangdev.Classroom.utils.Helper.generateRandomFileName;
 
 @Controller
 @RequestMapping("/classroom")
@@ -25,6 +36,12 @@ public class ClassroomController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HomeworkService homeworkService;
+
+    @Autowired
+    private UploadFileServiceImpl uploadFileService;
 
     @GetMapping("/")
     public String getClassroom(Model model){
@@ -86,13 +103,38 @@ public class ClassroomController {
     // chua xong
     @GetMapping("/detail/{id}")
     public String detailClass(@PathVariable int id, Model model){
+        var homeworkList = homeworkService.getByClassIdAndUsername(id, userService.getCurrentAccount().getUsername());
+        var listHomeworkOfTeacher = homeworkService.getByTeacher(id);
         var exitClass = classroomService.findClass(id);
         if(exitClass != null){
             model.addAttribute("classroom", exitClass);
+            model.addAttribute("homeworkObj", new Homework());
         }
         return "/user/detail_class";
     }
 
+
+    @PostMapping("/add-assignment")
+    public String addNewAssignment(@RequestParam("file")MultipartFile multipartFile,
+                                   @RequestParam("classroomId") int classroomId,
+                                    Model model,
+                                   Homework homework,
+                                   RedirectAttributes redirectAttributes
+    ) throws Exception{
+        if (multipartFile.isEmpty()) {
+            return "FIle is empty";
+        }
+
+        String newFileName = generateRandomFileName(multipartFile.getOriginalFilename());
+        File tempFile = File.createTempFile("homework_", newFileName);
+        multipartFile.transferTo(tempFile);
+        uploadFileService.uploadFileToDrive(tempFile);
+
+
+
+
+        return "redirect:/classroom/index";
+    }
 
 
 
