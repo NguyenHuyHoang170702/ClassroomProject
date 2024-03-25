@@ -53,6 +53,10 @@ public class Homework {
     @Lob
     private byte [] content;
 
+    public void addUser(User user){
+        this.users.add(user);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

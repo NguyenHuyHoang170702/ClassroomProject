@@ -55,11 +55,21 @@
                     basics and go all the way to creating your own
                     applications and games </p>
 
+                <h2 class="title" th:text="${classroom.codeClass}"></h2>
+
                 <div class="course-details-meta">
+                    <!--                    <div class="meta-action">-->
+                    <!--                        <div class="meta-author">-->
+                    <!--                            <img alt="Author" th:src="@{/images/author-1.jpg}">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="meta-name">-->
+                    <!--                            <h5 class="name">Adam Helen</h5>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
 
 
                     <div class="meta-action">
-                        <p class="label">Code : <span th:text="${classroom.getCodeClass()}">2/12/2021</span></p>
+                        <!--                        <p class="label">Code : <span th:text="${classroomDetails.getCodeClass()}">2/12/2021</span></p>-->
                     </div>
                 </div>
             </div>
@@ -70,6 +80,7 @@
 
     <!-- Course List Start -->
     <div class="section section-padding">
+        <div class="container">
 
             <div class="row justify-content-between">
                 <div class="col-xl-7 col-lg-8">
@@ -89,108 +100,112 @@
 
                         <!-- Course Overview End -->
                         <!-- Start news-->
-<!--                        <h3 class="title">Notification</h3>-->
-<!--                        <div class="course-learn-list" th:each="news: ${newsInClass}">-->
-<!--                            <div class="blog-image" style="width: 50px">-->
-<!--                                <a href="#"><img th:src="@{/images/notification-flat.png}" alt="Notification"></a>-->
-<!--                            </div>-->
-<!--                            <div class="blog-content">-->
-<!--                                <div class="meta">-->
-<!--                                    <a href="#" th:text="${news.getTimestamp()}"><i class="fa fa-calendar-o"></i> 01-->
-<!--                                        Jul, 2021</a>-->
-<!--                                </div>-->
-<!--                                <a th:href="@{'/news-details?newsId=' + ${news.getId()}}"><h3 class="title"-->
-<!--                                                                                              th:text="${news.getTitle()}">-->
-<!--                                    LIVE SHOW:-->
-<!--                                    Business memes, dad lessons, selling to CROs</h3></a>-->
-<!--                                <p th:text="${news.getContent()}">World-class training and development programs-->
-<!--                                    developed by top teachers. Build skills with courses, certificates, and degrees-->
-<!--                                    online from world-class universities and companies.</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;End news&ndash;&gt;-->
-<!--                        <div class="course-learn-list" th:each="homework: ${homeworkTeacherList}">-->
-<!--                            <div class="sidebar-course-item">-->
-<!--                                <div class="item-image">-->
-<!--                                    <a th:href="@{'/homework_list/download?id=' + ${homework.id}}"><img alt="Courses"-->
-<!--                                                                                                        th:src="@{/images/homework.png}"></a>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                        <h3 class="title">Notification</h3>
+                        <div class="course-learn-list" th:each="news: ${newsInClass}">
+                            <div class="blog-image" style="width: 50px">
+                                <a href="#"><img th:src="@{/images/notification-flat.png}" alt="Notification"></a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="meta">
+                                    <a href="#" th:text="${news.getTimestamp()}"><i class="fa fa-calendar-o"></i> 01
+                                        Jul, 2021</a>
+                                </div>
+                                <a th:href="@{'/news-details?newsId=' + ${news.getId()}}"><h3 class="title"
+                                                                                              th:text="${news.getTitle()}">
+                                    LIVE SHOW:
+                                    Business memes, dad lessons, selling to CROs</h3></a>
+                                <p th:text="${news.getContent()}">World-class training and development programs
+                                    developed by top teachers. Build skills with courses, certificates, and degrees
+                                    online from world-class universities and companies.</p>
+                            </div>
+                        </div>
+                        <!--End news-->
+                        <div class="course-learn-list" th:each="homework: ${homeworkTeacherList}">
+                            <div class="sidebar-course-item">
+                                <div class="item-image">
+                                    <a th:href="@{'/homework/getStudentHomework?classId='
+                                    + ${classroom.id} + '&parentId=' + ${homework.id}}"><img alt="Courses"
+                                                                                                        th:src="@{/images/homework.png}"></a>
+                                </div>
+                            </div>
 
-<!--                            <div class="item-content">-->
-<!--                                <h3 class="title"><a th:href="@{'/homework_list/download?id=' + ${homework.id}}"-->
-<!--                                                     th:text="${homework.getName() == null ? 'Untitled homework' : homework.getName()}">Cupidatat-->
-<!--                                    non proident sunt-->
-<!--                                    culpa officia deserunt</a> <i class="fa fa-download"></i></h3>-->
-<!--                                <span th:text="${homework.getDescription()}">World-class training and development programs-->
-<!--                                    developed by top teachers. Build skills-->
-<!--                                    with courses, certificates, and degrees online from world-class universities and-->
-<!--                                    companies. from the National Research University Higher School of Economics (HSE-->
-<!--                                    University) is the first fully online.</span>-->
-<!--                            </div>-->
+                            <div class="item-content">
+                                <h3 class="title">
+                                    <a th:href="${homework.homeworkCode}"><i class="fa fa-download"></i> Download Homework </a> </h3>
 
+                                    <h3 th:text="${homework.name}">
 
-<!--                            <div class="course-collapse-btn">-->
-<!--                                <button class="btn collapsed" data-bs-target="#upload-homework"-->
-<!--                                        data-bs-toggle="modal"-->
-<!--                                        data-bs-whatever="create-classroom" type="button">-->
-<!--                                    <i class="fa fa-pencil-square-o"></i>-->
-<!--                                    Your submission-->
-<!--                                </button>-->
-<!--                            </div>-->
+                                    </h3>
 
-<!--                            &lt;!&ndash;                            Start modal form&ndash;&gt;-->
-<!--                            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"-->
-<!--                                 id="upload-homework"-->
-<!--                                 tabindex="-1">-->
-<!--                                <div class="modal-dialog">-->
-<!--                                    <div class="modal-content">-->
-<!--                                        <div class="modal-header">-->
-<!--                                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>-->
-<!--                                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"-->
-<!--                                                    type="button"></button>-->
-<!--                                        </div>-->
-<!--                                        <div class="modal-body">-->
-<!--                                            <form enctype="multipart/form-data" th:method="post"-->
-<!--                                                  th:action="@{/classroom}"-->
-<!--                                                  th:object="${homeworkObj}">-->
-<!--                                                <input name="classroomId" th:value="${classroomId}" type="hidden">-->
-<!--                                                <div class="mb-3">-->
-<!--                                                    <input class="form-control" id="homeworkCode"-->
-<!--                                                           name="parentHomework" th:value="${homework.getId()}"-->
-<!--                                                           type="hidden">-->
-<!--                                                </div>-->
-<!--                                                <div class="mb-3">-->
-<!--                                                    <label class="col-form-label" for="homeworkName">Name</label>-->
-<!--                                                    <input class="form-control" id="homeworkName" required-->
-<!--                                                           th:field="*{name}" type="text">-->
-<!--                                                </div>-->
-<!--                                                <div class="mb-3">-->
-<!--                                                    <label class="col-form-label"-->
-<!--                                                           for="homeworkDescription">Description</label>-->
-<!--                                                    <input class="form-control" id="homeworkDescription" required-->
-<!--                                                           th:field="*{description}" type="text">-->
-<!--                                                </div>-->
-<!--                                                <div class="mb-3">-->
-<!--                                                    <label class="col-form-label" for="homeworkDescription">File</label>-->
-<!--                                                    <input class="form-control" id="formFile" name="file" type="file">-->
-<!--                                                </div>-->
-<!--                                                <div class="modal-footer">-->
-<!--                                                    <button class="btn btn-secondary" data-bs-dismiss="modal"-->
-<!--                                                            type="button">-->
-<!--                                                        Close-->
-<!--                                                    </button>-->
-<!--                                                    <button class="btn btn-primary" type="submit">Submit</button>-->
-<!--                                                </div>-->
-<!--                                            </form>-->
-<!--                                        </div>-->
+                                <span th:text="${homework.getDescription()}">World-class training and development programs
+                                    developed by top teachers. Build skills
+                                    with courses, certificates, and degrees online from world-class universities and
+                                    companies. from the National Research University Higher School of Economics (HSE
+                                    University) is the first fully online.</span>
+                            </div>
 
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash;                            End modal form&ndash;&gt;-->
-<!--                        </div>-->
+                            <div sec:authorize="hasAuthority('ROLE_STUDENT')">
+                                <div class="course-collapse-btn">
+                                    <button class="btn collapsed" data-bs-target="#upload-homework"
+                                            data-bs-toggle="modal"
+                                            data-bs-whatever="create-classroom" type="button">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        Your submission
+                                    </button>
+                                </div>
+                            </div>
 
+                            <!--                            Start modal form-->
+                            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+                                 id="upload-homework"
+                                 tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                                    type="button"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form enctype="multipart/form-data" th:method="post"
+                                                  th:action="@{/classroom/add-assignment}"
+                                                  th:object="${homeworkObj}">
+                                                <input name="classroomId" th:value="${classroom.id}" type="hidden">
+                                                <div class="mb-3">
+                                                    <input class="form-control" id="homeworkCode"
+                                                           name="parentHomework" th:value="${homework.getId()}"
+                                                           type="hidden">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="col-form-label" for="homeworkName">Name</label>
+                                                    <input class="form-control" id="homeworkName" required
+                                                           th:field="*{name}" type="text">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="col-form-label"
+                                                           for="homeworkDescription">Description</label>
+                                                    <input class="form-control" id="homeworkDescription" required
+                                                           th:field="*{description}" type="text">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="col-form-label" for="homeworkDescription">File</label>
+                                                    <input class="form-control" id="formFile" name="file" type="file">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                            type="button">
+                                                        Close
+                                                    </button>
+                                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--                            End modal form-->
+                        </div>
 
                         <!-- Course Review Start -->
                         <div class="course-review">
@@ -329,14 +344,12 @@
                                 <div class="price">
                                     <span class="sale-price">New assignment</span>
                                 </div>
-<!--                                <p class="alert alert-success" role="alert" th:if="${success}" th:text="${success}"></p>-->
-<!--                                <p class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></p>-->
+                                <p class="alert alert-success" role="alert" th:if="${success}" th:text="${success}"></p>
+                                <p class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></p>
                                 <div>
                                     <form enctype="multipart/form-data" method="post"
                                           th:action="@{/classroom/add-assignment}"
-                                          th:object="${homeworkObj}"
-                                          onsubmit="showLoading()"
-                                    >
+                                          th:object="${homeworkObj}">
                                         <input name="classroomId" th:value="${classroom.id}" type="hidden">
                                         <div class="mb-3">
                                             <label class="col-form-label" for="homeworkName2">Name</label>
@@ -357,55 +370,50 @@
                                         </button>
                                     </form>
                                 </div>
-
                                 <a class="btn btn-outline-primary w-100"
                                    th:href="@{'/news?classroomId=' + ${classroom.id}}">Add news</a>
                                 <a class="btn btn-outline-primary w-100"
 
                                    th:href="@{'/homework/index?classroomId=' + ${classroom.id}}"
                                    sec:authorize="hasAuthority('ROLE_TEACHER')">View homeworks</a>
+
                             </div>
                         </div>
-                        <div class="container">
-                            <!-- loading.html -->
-                            <div id="showLoading" style="display: none;">
-                                <div class="spinner-border" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </div>
                         <!-- Sidebar Details Video Description End -->
 
                         <!-- Sidebar Course Start -->
-<!--                        <div class="sidebar-details-course">-->
-<!--                            <h4 class="sidebar-details-title">Your homeworks</h4>-->
+                        <div  sec:authorize="hasAuthority('ROLE_STUDENT')">
+                            <div class="sidebar-details-course">
+                                <h4 class="sidebar-details-title">Your homeworks</h4>
 
-<!--                            <ul class="sidebar-details-courses">-->
-<!--                                <li th:each="homework: ${homeworkList}">-->
-<!--                                    &lt;!&ndash; Single Course Start &ndash;&gt;-->
-<!--                                    <div class="sidebar-course-item">-->
-<!--                                        <div class="item-image">-->
-<!--                                            <a th:href="@{'/homework_list/download?id=' + ${homework.id}}"><img-->
-<!--                                                    alt="Courses"-->
-<!--                                                    th:src="@{/images/homework.png}"></a>-->
-<!--                                        </div>-->
-<!--                                        <div class="item-content">-->
-<!--                                            <h4><a-->
-<!--                                                    th:href="@{'/homework_list/download?id=' + ${homework.id}}"-->
-<!--                                                    th:text="${homework.getName() == null ? 'Untitled homework' : homework.getName()}">Cupidatat-->
-<!--                                                non proident sunt-->
-<!--                                                culpa officia deserunt</a> <i class="fa fa-download"></i></h4>-->
+                                <ul class="sidebar-details-courses">
+                                    <li th:each="homework: ${homeworkList}">
+                                        <!-- Single Course Start -->
+                                        <div class="sidebar-course-item">
+                                            <div class="item-image">
+                                                <a th:href="@{'/homework_list/download?id=' + ${homework.id}}"><img
+                                                        alt="Courses"
+                                                        th:src="@{/images/homework.png}"></a>
+                                            </div>
+                                            <div class="item-content">
+                                                <h4><a
+                                                        th:href="@{'/homework_list/download?id=' + ${homework.id}}"
+                                                        th:text="${homework.getName() == null ? 'Untitled homework' : homework.getName()}"></a> <i class="fa fa-download"></i></h4>
 
-<!--                                            <h5 th:text="|Point: ${homework.getScore() == null ? 'Not graded yet' : homework.getScore() }|"-->
-<!--                                                style="color: green"></h5>-->
+                                                <h5 th:text="|Point: ${homework.getScore() == null ? 'Not graded yet' : homework.getScore() }|"
+                                                    style="color: green"></h5>
 
-<!--                                            <span class="price" th:text="${homework.getDescription()}">Price  <strong>$45</strong></span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash; Single Course End &ndash;&gt;-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-                        <!-- Sidebar Course End -->
+                                                <h2 class="price" th:text="${homework.getParentHomework().getName()}">Price
+                                                    <strong>$45</strong></h2>
+                                            </div>
+                                        </div>
+                                        <!-- Single Course End -->
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Sidebar Course End -->
+                        </div>
+
 
                     </div>
                     <!-- Sidebar Wrapper End -->
@@ -418,24 +426,6 @@
     <!-- Course List End -->
 
 </div>
-</div>
 </body>
-<script th:inline="javascript">
-    function showLoading() {
-        document.getElementById('showLoading').style.display = 'block';
-    }
 
-    function hideLoading() {
-        document.getElementById('showLoading').style.display = 'none';
-    }
-
-    $(document).ready(function() {
-        $(document).ajaxSuccess(function(event, xhr, settings) {
-            var showLoading = xhr.getResponseHeader('showLoading');
-            if (showLoading === 'false') {
-                hideLoading();
-            }
-        });
-    });
-</script>
 </html>

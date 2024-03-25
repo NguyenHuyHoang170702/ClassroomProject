@@ -6,6 +6,7 @@ import com.hoangdev.Classroom.models.Homework;
 import com.hoangdev.Classroom.models.Res;
 import com.hoangdev.Classroom.service.classroom.ClassroomService;
 import com.hoangdev.Classroom.service.homework.HomeworkService;
+import com.hoangdev.Classroom.service.news.NewsService;
 import com.hoangdev.Classroom.service.upload.UploadFileService;
 import com.hoangdev.Classroom.service.upload.UploadFileServiceImpl;
 import com.hoangdev.Classroom.service.user.UserService;
@@ -43,23 +44,26 @@ public class ClassroomController {
     @Autowired
     private UploadFileServiceImpl uploadFileService;
 
+    @Autowired
+    private NewsService newsService;
+
     @GetMapping("/")
-    public String getClassroom(Model model){
+    public String getClassroom(Model model) {
         var classOfUser = classroomService.getClassByUsername(userService.getCurrentAccount().getUsername());
         model.addAttribute("lstClass", classOfUser);
         return "user/classroomOfUser";
     }
 
     @GetMapping("/index")
-    public String listClassroomPaginate(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model){
+    public String listClassroomPaginate(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
         int pageSize = 6;
         List<ClassroomDto> classroomDtoList = new ArrayList<>();
         Page<Classroom> page = classroomService
-                .getClassByUsernamePaginate(userService.getCurrentAccount().getUsername(),pageNum,pageSize);
+                .getClassByUsernamePaginate(userService.getCurrentAccount().getUsername(), pageNum, pageSize);
         List<Classroom> classroomListView = page.getContent();
 
         classroomListView.forEach(classroom -> {
-            var teacherList = userService.findByRoleAndClassroom("ROLE_TEACHER",classroom.getId());
+            var teacherList = userService.findByRoleAndClassroom("ROLE_TEACHER", classroom.getId());
             var studentList = userService.findByRoleAndClassroom("ROLE_STUDENT", classroom.getId());
 
             classroomDtoList.add(new ClassroomDto(
@@ -82,7 +86,7 @@ public class ClassroomController {
 
     @PostMapping("/save")
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    public String CreateNewClass(Classroom classroom){
+    public String CreateNewClass(Classroom classroom) {
         var currentUser = userService.getCurrentAccount();
         classroom.setCodeClass(Helper.getRandomNumberString());
         currentUser.addClass(classroom);
@@ -91,53 +95,70 @@ public class ClassroomController {
     }
 
     @PostMapping("/join")
-    public String joinClassByCode(@RequestParam String keyword,Classroom classroom){
+    public String joinClassByCode(@RequestParam String keyword, Classroom classroom) {
         var currentUser = userService.getCurrentAccount();
         classroom = classroomService.findByCodeClassId(keyword);
         currentUser.getClassrooms().add(classroom);
         userService.addUser(currentUser);
-        return "redirect:/classroom/detail/"+classroom.getId();
+        return "redirect:/classroom/detail/" + classroom.getId();
     }
 
 
     // chua xong
     @GetMapping("/detail/{id}")
-    public String detailClass(@PathVariable int id, Model model){
+    public String detailClass(@PathVariable int id, Model model) {
         var homeworkList = homeworkService.getByClassIdAndUsername(id, userService.getCurrentAccount().getUsername());
         var listHomeworkOfTeacher = homeworkService.getByTeacher(id);
         var exitClass = classroomService.findClass(id);
-        if(exitClass != null){
+        var listNews = newsService.getNewsByClassId(exitClass.getId());
+        if (exitClass != null) {
             model.addAttribute("classroom", exitClass);
             model.addAttribute("homeworkObj", new Homework());
+            model.addAttribute("homeworkList", homeworkList);
+            model.addAttribute("homeworkTeacherList", listHomeworkOfTeacher);
+            model.addAttribute("newsInClass", listNews);
         }
-        return "/user/detail_class";
+        return "user/detail_class";
     }
 
 
     @PostMapping("/add-assignment")
-    public String addNewAssignment(@RequestParam("file")MultipartFile multipartFile,
+    public String addNewAssignment(@RequestParam("file") MultipartFile multipartFile,
                                    @RequestParam("classroomId") int classroomId,
-                                    Model model,
+                                   Model model,
                                    Homework homework,
                                    RedirectAttributes redirectAttributes
-    ) throws Exception{
+    ) throws Exception {
         if (multipartFile.isEmpty()) {
-            return "FIle is empty";
+            redirectAttributes.addFlashAttribute("error", "File isn't empty!!!");
         }
 
-        String newFileName = generateRandomFileName(multipartFile.getOriginalFilename());
-        File tempFile = File.createTempFile("homework_", newFileName);
-        multipartFile.transferTo(tempFile);
-        uploadFileService.uploadFileToDrive(tempFile);
+        try {
+            homework.setName(homework.getName());
 
+            homework.setSize(multipartFile.getSize());
 
+            String newFileName = generateRandomFileName(multipartFile.getOriginalFilename());
+            File tempFile = File.createTempFile("homework_", newFileName);
+            multipartFile.transferTo(tempFile);
+            Res uploadResult = uploadFileService.uploadFileToDrive(tempFile);
+            if(uploadResult.getStatus() == 200){
+                homework.setHomeworkCode(uploadResult.getUrl());
+                var classroom = classroomService.findClass(classroomId);
+                homework.addUser(userService.getCurrentAccount());
+                homework.setClassroom(classroom);
+                homeworkService.saveHomework(homework);
+                redirectAttributes.addFlashAttribute("success", "Created homework successfully!!!");
+            }else{
+                redirectAttributes.addFlashAttribute("error", "File too large!!!");
+            }
 
-
-        return "redirect:/classroom/index";
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        redirectAttributes.addFlashAttribute("success", "File uploaded successfully");
+        return "redirect:/classroom/detail/"+classroomId;
     }
-
-
-
 
 
 }

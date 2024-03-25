@@ -1,13 +1,3 @@
 {
-  "type": "service_account",
-  "project_id": "sunlit-pipe-418002",
-  "private_key_id": "00c90f23481225c55a1d258f588f46665d693dc3",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC9vLMLkg83oHYg\nOQrkQ1fDAfHnvy9ANkmLD0Ud2n8az4BQCLvi1fbtRLfbr5jCwM2bTo6w7tKISjw9\nPWa90Tqr78q6U/7rrUI3VAUTLtvZi/Lx9BLyqfhaDhc4WeiSKT4vCg4lTBpiElUZ\nNy0kMhMBzrsvplvN07vd2/BvKN7Fxv+9lHMJO3sDrlKgn+EydIsO+fm05O3ROlw1\nC6EPXnnc1JJHJ1Upla0YrbpU1CjDSPOuzJtWnuq8prHZnTREMOZAynbCCXd8SYmF\njTirul/+5cK8M9Syjjlw949rZwqsFpPPVA8jFwn/CAKs25T3y4HBmIBJgzQPEure\n03owwQ5/AgMBAAECggEALM8jQ8DHWj5Jl3uRQG5NDC9p527F5HbNsIs3KgE/kl/d\n8EjXwo8AhXF8sGPMgnYROLP5S/zi+K/7gQT+viZrIk77xDxxEEy3PiTYG/stjbeY\n9R5M2UVd8zqvri3BmL8nwekwhQtvkai9szpOLWWsCnm9yFeUB8yQ6ij2o/H1hqR7\n3qbFMxU+EZB8NrB68fpefMvGrxq12K71XU8Q3sBMyM1b4B73O6XKdzTLQV6UkLfK\nRvm/sW2IbFebdNIwGPiTu16SWV+RC6PUY1/7KINO9Pd2L6+eq9XJtbVpY49+voqk\nNxXKq6Z+PJluLYsFj54/KUUFA5hCeDmTN8eos5JAHQKBgQDpKmgST75H+8YDO3q2\neEfgqkcQvgCpX0ljWkw/BLvLiArfgW+1qCJW4ofNiwMJjef3+sXN3+1NS0ambMQ/\nhnt6qNY0K3gQidJA3wj5iRHeX3Ewc7wk7aVLAN0M81glOH3hR0RSgNfijdeFJJFN\nS+dhahZW/D/Ey01JzaCCm0QhgwKBgQDQUYPT+GzdCroGtv/Gk9AMtqahGXh3wzsl\nQqVHmM2tLhLFDK1WZ5byII8Yl5qOnBQ2VWiE2XnecptegerP/HnBs9G6nNJQtJuf\nPBU8p4rROdvg67SSvfJ5bLxR+UeqT8n5d+jwDtrU6/9HY4Bn5cjnqJOyjMw+zWj2\nx9Q993j6VQKBgBphgOrpeNb+JpZBCY5Rp5hEy8uaI8sGC/Cgy9WpfHH3z3sgUvpT\nrqbz9HeODebr1l4ZUn4LovbG2JSF4+JoHdpv9eRrMqd0YISUd5h8KLhnRhA8WAI5\nnSUSUPBhLAzyClQN0y4eg86PS941l/cN6nz8GtD2s2RZuEHscQe194xvAoGBALA2\n0+mhcg0EvtlhQTkr3chzVL5fekzsY4KgPoky04CTwaLXl2TImaHVMtZdn4rUsjBH\nzPLbt8AYeB7YjNVEv4W/40AU2b8VF7L5swksvDtB0yIOoB+k95AJD7/TuvBxL+uL\nqAowtqF3w+gSXhMFCA4VxmI5wae6P/jIjlugk8BFAoGAQh00xGz4aq2SnGMcJQOW\nHQfK/ub92KuV5nxl4GqFWjGNlHOI97m1xfevlQlZU3xHl6F97R6n+uChK5EaQcxs\nafkTH2ChLgJByT1L1EIlVVzpFxezApdQfRofata4mBjjFSwsP5FNcxY0azWvVoZb\nzpWoxqUZk5vH56LsL9/EDr0=\n-----END PRIVATE KEY-----\n",
-  "client_email": "googledriveupload@sunlit-pipe-418002.iam.gserviceaccount.com",
-  "client_id": "101134688414638943933",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/googledriveupload%40sunlit-pipe-418002.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
+
 }

@@ -14,4 +14,8 @@ public interface HomeworkService {
     List<Homework> getByClassIdAndUsername(int classId, String username);
 
     List<Homework> getByTeacher(int classId);
+
+    List<Homework> findHomeworkByIdAndParentHomeworkId(int homeworkId, int parentHomeworkId);
+
+
 }

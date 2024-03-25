@@ -38,4 +38,9 @@ public class HomeworkServiceImpl implements HomeworkService{
     public List<Homework> getByTeacher(int classId) {
         return homeworkRepository.getHomeworkByTeacher(classId);
     }
+
+    @Override
+    public List<Homework> findHomeworkByIdAndParentHomeworkId(int homeworkId, int parentHomeworkId) {
+        return homeworkRepository.findByClassroomIdAndAndParentHomework(homeworkId, parentHomeworkId);
+    }
 }
