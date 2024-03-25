@@ -2,7 +2,8 @@
 <html lang="vi"
       layout:decorate="_layout"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.ultraq.net.nz/thymeleaf/security"
+      xmlns:th="http://www.thymeleaf.org">
 >
 <head>
     <title>Dashboard</title>
@@ -61,7 +62,7 @@
     <!-- Blog Start -->
     <div class="section section-padding">
         <div class="container">
-            <div sec:authorize="hasAnyAuthority('TEACHER')">
+            <div sec:authorize="hasAnyAuthority('ROLE_TEACHER')">
                 <p>We found <span>[[${totalItems}]]</span> news For You</p>
                 <a th:href="@{'/news/add/' + ${classroomId}}" class="btn btn-primary btn-hover-heading-color">Add News</a>
             </div>
@@ -71,19 +72,15 @@
                     <div class="col-lg-8">
                         <!-- Single Blog List Start -->
                         <div class="single-blog blog-list"  th:each="news: ${newsDtoList}">
-                            <div class="blog-image">
-                                <a href="blog-details.html"><img th:src="@{images/blog/blog-list-1.jpg}" alt="Blog"></a>
-                                <span class="tags">Education</span>
-                            </div>
                             <div class="blog-content" >
                                 <div class="meta">
-                                    <a href="blog-details.html" th:each="teacher: ${news.getTeachers()}" th:text="${teacher.getUserName()}"><i class="fa fa-user-o"></i> Andrew paker</a>
+                                    <a href="blog-details.html" th:each="teacher: ${news.getTeachers()}" th:text="${teacher.getUsername()}"><i class="fa fa-user-o"></i> Andrew paker</a>
                                     <a href="#" th:text="${news.getTimestamp()}" ><i class="fa fa-calendar-o"></i> 01 Jul, 2021</a>
                                 </div>
                                 <h3 class="title" th:text="${news.getTitle()}" ><a href="blog-details.html">LIVE SHOW: Business memes, dad lessons, selling to CROs</a></h3>
                                 <p th:remove="tag" th:th:utext="${news.getContent()}">World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class universities and companies.</p>
-                                <a th:each="i: ${#numbers.sequence(1, totalsPage)}" th:href="@{'/news-details?newsId=' + ${news.getId()} + '&pageId=' + ${i}}" class="btn btn-primary btn-hover-heading-color">Read More</a>
-                                <form th:action="@{/news}" method="delete" th:object="${news}">
+                                <a th:each="i: ${#numbers.sequence(1, totalsPage)}" th:href="@{'/news/news-details?newsId=' + ${news.getId()} + '&pageNum=' + ${i}}" class="btn btn-primary btn-hover-heading-color">Read More</a>
+                                <form th:action="@{/news/delete-news}" method="delete" th:object="${news}">
                                     <button class="btn btn-primary btn-hover-heading-color">delete news</button>
                                 </form>
                             </div>
@@ -96,7 +93,7 @@
                             <div class="row col-sm-10 page-pagination">
                                 <div class="pagination justify-content-center">
                     <span th:each="i: ${#numbers.sequence(1, totalsPage)}">
-                          <a class="active" th:if="${currentPage != i}"  th:href="@{'/news?classroomId=' + ${classroomId} + '&pageId=' + ${i}}" >[[${i}]]</a>
+                          <a class="active" th:if="${currentPage != i}"  th:href="@{'/news/index?classroomId=' + ${classroomId} + '&pageNum=' + ${i}}" >[[${i}]]</a>
                           <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                     </span>
                                 </div>

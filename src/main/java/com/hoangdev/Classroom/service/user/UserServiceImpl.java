@@ -79,4 +79,9 @@ public class UserServiceImpl implements UserService {
     public void addUser(User user) {
         userRepository.save(user);
     }
+
+    @Override
+    public Set<User> findByRoleAndNews(String roleName, long newId) {
+        return userRepository.findByRolesAndNews(roleName,newId);
+    }
 }

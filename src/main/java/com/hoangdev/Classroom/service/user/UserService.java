@@ -26,4 +26,6 @@ public interface UserService {
 
     void addUser(User user);
 
+    Set<User> findByRoleAndNews(String roleName, long newId);
+
 }

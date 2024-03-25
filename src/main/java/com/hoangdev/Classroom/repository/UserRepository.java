@@ -22,4 +22,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select distinct user from User user " +
             "join user.roles role join user.classrooms classroom where role.roleName =:role and classroom.id =:classroomId")
     Set<User> findByRolesAndClassrooms(@Param("role") String role, @Param("classroomId") int classroomId);
+
+    @Query("select distinct user from User user " +
+            "join user.roles role join user.news news where role.roleName =:role and news.id =:newsId")
+    Set<User> findByRolesAndNews(@Param("role") String role, @Param("newsId") long newsId);
 }

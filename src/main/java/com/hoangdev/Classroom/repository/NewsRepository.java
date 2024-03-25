@@ -25,5 +25,5 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
     @Query("SELECT news FROM News news JOIN news.classroom classroom WHERE classroom.id = news.classroom.id AND classroom.id = :classroomId")
     List<News> findByClassId(@Param("classroomId") Long classroomId);
     @Query("SELECT DISTINCT news FROM News news JOIN news.classroom classroom  WHERE classroom.id = :classroomId")
-    Page<News> findByClassroomIdPagination(@Param("classroomId") Long classroomId, Pageable pageable);
+    Page<News> findByClassroomIdPagination(@Param("classroomId") int classroomId, Pageable pageable);
 }
