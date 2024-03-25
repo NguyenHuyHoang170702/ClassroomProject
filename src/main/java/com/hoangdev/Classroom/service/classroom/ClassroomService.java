@@ -15,4 +15,6 @@ public interface ClassroomService {
     Classroom findClass(int id);
 
     Classroom findByCodeClassId(String keyword);
+
+    Classroom getClassById(int classId);
 }

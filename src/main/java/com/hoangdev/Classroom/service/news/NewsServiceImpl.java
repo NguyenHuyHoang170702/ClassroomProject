@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class NewsServiceImpl implements NewsService{
+public class NewsServiceImpl implements NewsService {
     @Autowired
     private NewsRepository newsRepository;
 
@@ -37,12 +37,12 @@ public class NewsServiceImpl implements NewsService{
 
     @Override
     public void addNews(News news) {
-
+        newsRepository.save(news);
     }
 
     @Override
     public News getNewsByNewsId(Long id) {
-        return null;
+        return newsRepository.findNewsById(id);
     }
 
     @Override
@@ -52,13 +52,14 @@ public class NewsServiceImpl implements NewsService{
 
     @Override
     public Page<News> findPaginated(int classroomId, int pageNum, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNum-1, pageSize);
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
         return newsRepository.findByClassroomIdPagination(classroomId, pageable);
     }
 
     @Override
     public void deleteNews(News news) {
-
+        news.getUsers().clear();
+        newsRepository.delete(news);
     }
 }

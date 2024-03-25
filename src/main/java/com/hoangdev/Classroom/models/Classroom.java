@@ -36,6 +36,10 @@ public class Classroom {
     @OneToMany(mappedBy = "classroom")
     private Set<News> news = new HashSet<>();
 
+    public void deleteNews(News news){
+        this.news.remove(news);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

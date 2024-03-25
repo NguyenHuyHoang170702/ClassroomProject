@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="_layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add news</title>
+</head>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+<body>
+
+<div class="main-wrapper" layout:fragment="main_body">
+
+    <!-- Contact Form Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                    <div class="section-title text-center">
+                        <h2 class="title"><span>Add news</span> To class</h2>
+                    </div>
+                    <div class="contact-form-wrapper">
+                        <form th:action="@{/news}" method="post" th:object="${news}">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Single Form Start -->
+                                    <div class="single-form">
+                                        <textarea  th:field="*{title}" class="form-control" placeholder="Write A title*"></textarea>
+                                    </div>
+                                    <div class="single-form">
+                                        <textarea id="editor"  th:field="*{content}" class="form-control" placeholder="Write A Massage*"></textarea>
+                                    </div>
+                                    <input type="hidden" name="classroomId" th:value="${classroomId}">
+                                    <!-- Single Form End -->
+                                </div>
+                                <div class="col-md-12">
+                                    <!-- Single Form Start -->
+                                    <div class="single-form text-center">
+                                        <button type="submit" class="btn btn-primary btn-hover-heading-color">Send Message</button>
+                                    </div>
+
+                                    <!-- Single Form End -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Contact Form End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact Form End -->
+</div>
+</body>
+<div layout:fragment="script-block">
+    <script defer src="/ckeditor5/ckeditor.js"></script>
+    <script>
+        window.addEventListener("load", (e)=>{
+            ClassicEditor.create( document.querySelector( '#editor' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+        });
+    </script>
+</div>
+
+</html>

@@ -12,12 +12,15 @@ import java.util.List;
 
 
 @Repository
-public interface NewsRepository extends JpaRepository<News, Integer> {
+public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Query("select distinct news from News news join news.classroom classroom where classroom.id =:classId")
     List<News> findNewsByClassroomId(@Param("classId") int classId);
     @Query("SELECT news FROM News news WHERE news.id = ?1")
     List<News> findByNewsId(@Param("newsId") Long newsId);
+
+    @Query("SELECT news FROM News news WHERE news.id = ?1")
+    News findNewsById(@Param("newsId") Long newsId);
 
     @Query("SELECT DISTINCT news FROM News news JOIN news.users user  WHERE user.username = :userName")
     List<News> findByUserName(@Param("userName") String userName);

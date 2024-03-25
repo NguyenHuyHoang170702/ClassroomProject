@@ -55,21 +55,12 @@
                     basics and go all the way to creating your own
                     applications and games </p>
 
-                <h2 class="title" th:text="${classroom.codeClass}"></h2>
 
                 <div class="course-details-meta">
-                    <!--                    <div class="meta-action">-->
-                    <!--                        <div class="meta-author">-->
-                    <!--                            <img alt="Author" th:src="@{/images/author-1.jpg}">-->
-                    <!--                        </div>-->
-                    <!--                        <div class="meta-name">-->
-                    <!--                            <h5 class="name">Adam Helen</h5>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
 
 
                     <div class="meta-action">
-                        <!--                        <p class="label">Code : <span th:text="${classroomDetails.getCodeClass()}">2/12/2021</span></p>-->
+                        <p class="label">Code : <span th:text="${classroom.getCodeClass()}">2/12/2021</span></p>
                     </div>
                 </div>
             </div>
@@ -114,9 +105,8 @@
                                                                                               th:text="${news.getTitle()}">
                                     LIVE SHOW:
                                     Business memes, dad lessons, selling to CROs</h3></a>
-                                <p th:text="${news.getContent()}">World-class training and development programs
-                                    developed by top teachers. Build skills with courses, certificates, and degrees
-                                    online from world-class universities and companies.</p>
+                                <p th:utext="${news.getContent()}"></p>
+
                             </div>
                         </div>
                         <!--End news-->
@@ -372,8 +362,8 @@
                                 </div>
                                 <a class="btn btn-outline-primary w-100"
                                    th:href="@{'/news/index?classId=' + ${classroom.id}}">View news</a>
-                                <a class="btn btn-outline-primary w-100"
 
+                                <a class="btn btn-outline-primary w-100"
                                    th:href="@{'/homework/index?classroomId=' + ${classroom.id}}"
                                    sec:authorize="hasAuthority('ROLE_TEACHER')">View homeworks</a>
 

@@ -45,4 +45,9 @@ public class ClassroomServiceImpl implements ClassroomService{
         return null;
     }
 
+    @Override
+    public Classroom getClassById(int classId) {
+        return classroomRepository.findById(classId).orElse(null);
+    }
+
 }
