@@ -28,4 +28,6 @@ public interface UserService {
 
     Set<User> findByRoleAndNews(String roleName, long newId);
 
+    Set<User> findByRoleAndComment(String roleName, long commentId);
+
 }

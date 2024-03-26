@@ -52,6 +52,9 @@ public class User {
     @ManyToMany (mappedBy = "users")
     private Set<News> news=new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
     public void addClass(Classroom cls) {
         this.classrooms.add(cls);
     }

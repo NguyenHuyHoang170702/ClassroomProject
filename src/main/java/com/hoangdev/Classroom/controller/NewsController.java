@@ -1,19 +1,24 @@
 package com.hoangdev.Classroom.controller;
 
 
+import com.hoangdev.Classroom.dto.CommentDto;
 import com.hoangdev.Classroom.dto.NewsDto;
 import com.hoangdev.Classroom.models.Classroom;
+import com.hoangdev.Classroom.models.Comment;
 import com.hoangdev.Classroom.models.News;
 import com.hoangdev.Classroom.service.classroom.ClassroomService;
+import com.hoangdev.Classroom.service.comment.CommentService;
 import com.hoangdev.Classroom.service.news.NewsService;
 import com.hoangdev.Classroom.service.user.UserService;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.engine.CommentStructureHandler;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +35,9 @@ public class NewsController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
 
     @GetMapping("/index")
@@ -93,6 +101,52 @@ public class NewsController {
         exitClass.getNews().clear();
         newsService.deleteNews(exitNews);
         return "redirect:/news/index?classId=" + classId;
+    }
+
+    @GetMapping("/detail-news")
+    public String detailNews(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam("newsId") Long newsId, Model model){
+        try{
+            int pageSize = 4;
+            List<CommentDto> commentDtoList = new ArrayList<>();
+            List<NewsDto> newsDetailsDtoList = new ArrayList<>();
+            var newsDetailsList = newsService.getNewsById(newsId);
+            Page<Comment> page = commentService.findByNewsPaginated(newsService.getNewsByNewsId(newsId).getId(), pageNum, pageSize);
+            List<Comment> commentListView = page.getContent();
+            newsDetailsList.forEach(news -> {
+                var teacherList = userService.findByRoleAndNews("ROLE_TEACHER", news.getId());
+                var studentList = userService.findByRoleAndNews("ROLE_STUDENT", news.getId());
+                newsDetailsDtoList.add(new NewsDto(
+                        news.getId(),
+                        news.getTitle(),
+                        news.getContent(),
+                        news.getTimestamp(),
+                        teacherList,
+                        studentList));
+            });
+            commentListView.forEach(comment -> {
+                var teacherList = userService.findByRoleAndComment("ROLE_TEACHER", comment.getId());
+                var studentList = userService.findByRoleAndComment("ROLE_STUDENT", comment.getId());
+                commentDtoList.add(new CommentDto(
+                        comment.getId(),
+                        comment.getContent(),
+                        comment.getTimestamp(),
+                        teacherList,
+                        studentList,
+                        studentList.size()));
+            });
+
+            model.addAttribute("newsId", newsId);
+            model.addAttribute("newsDetailsDtoList", newsDetailsDtoList);
+            model.addAttribute("commentDtoList", commentDtoList);
+            model.addAttribute("comment", new Comment());
+            model.addAttribute("currentPage", pageNum);
+            model.addAttribute("totalsPage", page.getTotalPages());
+            model.addAttribute("totalItems", page.getTotalElements());
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        return "user/detailNews";
     }
 
 }

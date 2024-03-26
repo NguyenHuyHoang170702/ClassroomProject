@@ -32,7 +32,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> getNewsById(Long id) {
-        return null;
+        return newsRepository.findByNewsId(id);
     }
 
     @Override
