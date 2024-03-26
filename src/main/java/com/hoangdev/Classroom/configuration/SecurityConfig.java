@@ -64,6 +64,7 @@ public class SecurityConfig {
                                 .requestMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN")
                                 .requestMatchers("/classroom/**").hasAnyAuthority("ROLE_STUDENT", "ROLE_TEACHER")
                                 .requestMatchers("/news/**").hasAnyAuthority("ROLE_STUDENT", "ROLE_TEACHER")
+                                .requestMatchers("/comment/**").hasAnyAuthority("ROLE_STUDENT", "ROLE_TEACHER")
                                 .requestMatchers("/account/**").authenticated()
                                 .anyRequest().permitAll()
                 )
