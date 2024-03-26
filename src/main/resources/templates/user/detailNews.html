@@ -174,7 +174,7 @@
                                         <h3 class="comment-title">Leave a Comment</h3>
 
                                         <div class="comment-form-wrapper">
-                                            <form th:action="@{/comment/add-comment}" th:object="${comment}"
+                                            <form th:action="@{/comment}" th:object="${comment}"
                                                   method="POST">
                                                 <div class="row">
                                                     <input type="hidden" th:value="${newsId}" name="newsId">

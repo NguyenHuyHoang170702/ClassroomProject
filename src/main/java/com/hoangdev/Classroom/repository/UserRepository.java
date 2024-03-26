@@ -2,6 +2,7 @@ package com.hoangdev.Classroom.repository;
 
 import com.hoangdev.Classroom.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -29,4 +30,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT DISTINCT user FROM User user JOIN user.roles role JOIN user.comments comment WHERE role.roleName = :role AND comment.id = :commentId")
     Set<User> findByRoleAndComment(@Param("role") String role, @Param("commentId") Long commentId);
+
+    @Modifying
+    @Query("UPDATE User user SET user.password =:password where user.username =:username")
+    void updatePasswordByEmail(@Param("password") String password, @Param("username") String username);
+
+     User findByResetPassToken(String token);
 }

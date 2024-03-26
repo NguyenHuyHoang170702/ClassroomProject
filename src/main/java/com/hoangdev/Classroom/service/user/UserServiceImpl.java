@@ -89,4 +89,30 @@ public class UserServiceImpl implements UserService {
     public Set<User> findByRoleAndComment(String roleName, long commentId) {
         return userRepository.findByRoleAndComment(roleName, commentId);
     }
+
+    @Override
+    public void resetPassword(String newPassword, User user) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        var passwordEncoder = bCryptPasswordEncoder.encode(newPassword);
+        user.setPassword(passwordEncoder);
+        user.setResetPassToken(null);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateResetPasswordToken(String token, String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setResetPassToken(token);
+            user.setResetPassToken("");
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public User getToken(String resetPassToken) {
+        return userRepository.findByResetPassToken(resetPassToken);
+    }
+
+
 }

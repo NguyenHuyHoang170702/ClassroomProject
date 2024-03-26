@@ -31,6 +31,7 @@ public class User {
     private String password;
     @Column(name = "status")
     private boolean status;
+    private String resetPassToken;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",

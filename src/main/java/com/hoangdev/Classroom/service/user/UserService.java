@@ -30,4 +30,9 @@ public interface UserService {
 
     Set<User> findByRoleAndComment(String roleName, long commentId);
 
+    void resetPassword(String newPassword, User user);
+
+    void updateResetPasswordToken(String token, String email);
+    User getToken(String resetPassToken);
+
 }
